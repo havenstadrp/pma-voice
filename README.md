@@ -31,6 +31,7 @@ All of the configs here are set using `setr [voice_configOption] [boolean]`
 | ConVar                     | Default | Description                                                   | Parameter(s) |
 |----------------------------|---------|---------------------------------------------------------------|--------------|
 | voice_useNativeAudio       |  false  | Uses the games native audio, will add 3d sound, echo, reverb, and more. Required for submixs   | boolean      |
+| voice_use3dAudio           |  false  | DEPRECATED: Use `voice_useNativeAudio` instead. Uses 3d audio, will base voices dependent where the player(s) are. | boolean      |
 | voice_use2dAudio           |  false  | Uses 2d audio, will result in same volume sound no matter where they're at until they leave proximity. | boolean      |
 | voice_useSendingRangeOnly  |  false  | Only allows you to hear people within your hear/send range, prevents people from connecting to your mumble server and trolling. | boolean      |
 
@@ -51,7 +52,7 @@ All of the configs here are set using `setr [voice_configOption] [int]` OR `setr
 |-------------------------|---------|--------------------------------------------------------------------|--------------|
 | voice_enableUi               |    1    | Enables the built in user interface                            | int          |
 | voice_enableProximityCycle   |    1    | Enables the usage of the F11 proximity key, if disabled players are stuck on the first proximity  | int          |
-| voice_defaultCycle           |   F11   | The default key to cycle the players proximity. You can find a list of valid keys [in the FiveM docs](https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/)                | string       |
+| voice_defaultCycle           |   F11   | The default key to cycle the players proximity                | string       |
 | voice_defaultVolume          |   0.3   | The default volume to set the radio to (has to be between 0.0 and 1.0) *NOTE: Only new joins will have the new value, players that already joined will not.* | float       |
 
 
@@ -63,7 +64,7 @@ All of the configs here are set using `setr [voice_configOption] [int]` OR `setr
 | voice_enablePhones           |    1    | Enables the phone sub-modules                                 | int          |
 | voice_enableSubmix      |    0    | Enables the submix which adds a radio/phone style submix to their voice | int          |
 | voice_enableRadioAnim        |   0     | Enables (grab shoulder mic) animation while talking on the radio.          | int          |
-| voice_defaultRadio           |   LALT  | The default key to use the radio. You can find a list of valid keys [in the FiveM docs](https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/)                             | string       |
+| voice_defaultRadio           |   LALT  | The default key to use the radio                              | string       |
 
 ### Grid & Sync
 
