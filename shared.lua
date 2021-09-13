@@ -1,4 +1,12 @@
 Cfg = {}
+
+-- these are just here to satisfy linting
+if not IsDuplicityVersion() then
+	LocalPlayer = LocalPlayer
+end
+Player = Player
+Entity = Entity
+
 -- possibly GetConvar('voice_modes', '0.5;2.0;5.0')
 -- possibly GetConvar('voice_modeNames', 'Whisper;Normal;Shouting') and seperate them on runtime?
 if GetConvar('voice_useNativeAudio', 'false') == 'true' then
@@ -23,18 +31,18 @@ logger = {
 	['info'] = function(message, ...)
 		if GetConvarInt('voice_debugMode', 0) >= 1 then
 			print(('[info] ' .. message):format(...))
-		end	
+		end
 	end,
 	['warn'] = function(message, ...)
 		print(('[^1WARNING^7] ' .. message):format(...))
 	end,
 	['error'] = function(message, ...)
-		print(('[^1ERROR^7] ' .. message):format(...))
+		error((message):format(...))
 	end,
 	['verbose'] = function(message, ...)
 		if GetConvarInt('voice_debugMode', 0) >= 4 then
 			print(('[verbose] ' .. message):format(...))
-		end	
+		end
 	end,
 }
 
@@ -43,7 +51,8 @@ function tPrint(tbl, indent)
 	indent = indent or 0
 	for k, v in pairs(tbl) do
 		local tblType = type(v)
-		formatting = string.rep("  ", indent) .. k .. ": "
+		local formatting = string.rep("  ", indent) .. k .. ": "
+
 		if tblType == "table" then
 			print(formatting)
 			tPrint(v, indent + 1)
