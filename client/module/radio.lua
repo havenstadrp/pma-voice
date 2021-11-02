@@ -1,3 +1,5 @@
+local radioChannel = 0
+
 --- event syncRadioData
 --- syncs the current players on the radio to the client
 ---@param radioTable table the table of the current players on the radio
@@ -155,7 +157,7 @@ end, false)
 RegisterCommand('-radiotalk', function()
 	if radioChannel > 0 or radioEnabled and radioPressed then
 		radioPressed = false
-		MumbleClearVoiceTargetPlayers(1)
+		MumbleClearVoiceTargetPlayers(voiceTarget)
 		playerTargets(NetworkIsPlayerTalking(PlayerId()) and callData or {})
 		TriggerEvent("pma-voice:radioActive", false)
 		playMicClicks(false)
