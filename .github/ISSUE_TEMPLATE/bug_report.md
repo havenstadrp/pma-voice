@@ -1,29 +1,32 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
+about: Maak een rapport om ons te helpen iets te verbeteren of op te lossen
+title: "[BUG]"
+labels: bug
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Beschrijf de bug**
+Een duidelijke en beknopte beschrijving van wat de bug is. Iemand die qbcore niet kent, zou uw bugrapport moeten kunnen lezen en begrijpen hoe hij het zelf kan reproduceren en begrijpen hoe de functie normaal zou moeten werken.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See an error
+**Te reproduceren**
+Stappen om het gedrag te reproduceren:
+1. Ga naar '...'
+2. Klik op '....'
+3. Gebruik dit item '....' (naam van item uit shared.lua indien van toepassing)
+4. Zie fout
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Verwacht gedrag**
+Een duidelijke en beknopte beschrijving van wat je verwachtte dat er zou gebeuren.
 
-**Server Info:**
- - Server Version: [e.g. 3456]
-- Client Version: [e.g. production|canary]
-- Client Build: [e.g. b1604|b2060|b2189|b2372]
+**Screenshots**
+Voeg, indien van toepassing, screenshots toe om uw probleem uit te leggen.
 
-**Additional context**
-Add any other context about the problem here.
+**Vragen (vul de volgende gegevens in):**
+  - Wanneer u voor het laatst hebt bijgewerkt: [bijv. vorige week]
+  - Gebruikt u een aangepaste bron? welke? [bijv. zdiscord, qb-target]
+  - Heb je `qb-` hernoemd naar iets op maat? [bijv. Ja nee]
+
+**Aanvullende context**
+Voeg hier een andere context over het probleem toe.
