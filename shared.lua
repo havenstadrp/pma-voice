@@ -1,8 +1,8 @@
 Cfg = {}
 
 voiceTarget = 1
-radioTarget = 2
-callTarget = 3
+
+gameVersion = GetGameName()
 
 -- these are just here to satisfy linting
 if not IsDuplicityVersion() then
@@ -15,9 +15,9 @@ Entity = Entity
 if GetConvar('voice_useNativeAudio', 'false') == 'true' then
 	-- native audio distance seems to be larger then regular gta units
 	Cfg.voiceModes = {
-		{2.0, "Whisper"}, -- Whisper speech distance in gta distance units
-		{4.0, "Normal"}, -- Normal speech distance in gta distance units
-		{8.0, "Shouting"} -- Shout speech distance in gta distance units
+		{1.5, "Whisper"}, -- Whisper speech distance in gta distance units
+		{3.0, "Normal"}, -- Normal speech distance in gta distance units
+		{6.0, "Shouting"} -- Shout speech distance in gta distance units
 	}
 else
 	Cfg.voiceModes = {
@@ -28,21 +28,21 @@ else
 end
 
 logger = {
-	['log'] = function(message, ...)
+	log = function(message, ...)
 		print((message):format(...))
 	end,
-	['info'] = function(message, ...)
+	info = function(message, ...)
 		if GetConvarInt('voice_debugMode', 0) >= 1 then
 			print(('[info] ' .. message):format(...))
 		end
 	end,
-	['warn'] = function(message, ...)
+	warn = function(message, ...)
 		print(('[^1WARNING^7] ' .. message):format(...))
 	end,
-	['error'] = function(message, ...)
+	error = function(message, ...)
 		error((message):format(...))
 	end,
-	['verbose'] = function(message, ...)
+	verbose = function(message, ...)
 		if GetConvarInt('voice_debugMode', 0) >= 4 then
 			print(('[verbose] ' .. message):format(...))
 		end
@@ -67,4 +67,27 @@ function tPrint(tbl, indent)
 			print(formatting .. v)
 		end
 	end
+end
+
+local function types(args)
+    local argType = type(args[1])
+    for i = 2, #args do
+        local arg = args[i]
+        if argType == arg then
+            return true, argType
+        end
+    end
+    return false, argType
+end
+
+function type_check(...)
+    local vars = {...}
+    for i = 1, #vars do
+        local var = vars[i]
+        local matchesType, varType = types(var)
+        if not matchesType then
+            table.remove(var, 1)
+            error(("Invalid type sent to argument #%s, expected %s, got %s"):format(i, table.concat(var, "|"), varType))
+        end
+    end
 end

@@ -1,7 +1,5 @@
-### NOTICE: pma-voice 6.1.0+ requires you to use server build 4837+. It will fail to start on older builds.
-
 # pma-voice
-A voice system designed around the use if FiveM's internal mumble server.
+A voice system designed around the use of FiveM/RedM internal mumble server.
 
 ## Support
 
@@ -20,7 +18,7 @@ Please do not override `NetworkSetTalkerProximity`, `MumbleSetAudioInputDistance
 - @Frazzle for mumble-voip (for which the concept came from)
 - @pichotm for pVoice (where the grid concept came from)
 
-# FiveM Config
+# FiveM/RedM Config
 
 ### NOTE: Only use one of the Audio options (don't enable 3d Audio & Native Audio at the same time), its also recommended to always use voice_useSendingRangeOnly.
 
@@ -28,12 +26,14 @@ You only need to add the convar **if** you're changing the value.
 
 All of the configs here are set using `setr [voice_configOption] [boolean]`
 
+Native audio will not work on RedM, you will have to use 3d audio.
+
 | ConVar                     | Default | Description                                                   | Parameter(s) |
 |----------------------------|---------|---------------------------------------------------------------|--------------|
-| voice_useNativeAudio       |  false  | Uses the games native audio, will add 3d sound, echo, reverb, and more. Required for submixs   | boolean      |
-| voice_use2dAudio           |  false  | Uses 2d audio, will result in same volume sound no matter where they're at until they leave proximity. | boolean      |
+| voice_useNativeAudio       |  false  | **This will not work for RedM** Uses the games native audio, will add 3d sound, echo, reverb, and more. **Required for submixs**   | boolean      |
+| voice_use2dAudio           |  false  | Uses 2d audio, will result in same volume sound no matter where they're at until they leave proximity. | boolean      
+| voice_use3dAudio           |  false  | Uses 3d audio | boolean |
 | voice_useSendingRangeOnly  |  false  | Only allows you to hear people within your hear/send range, prevents people from connecting to your mumble server and trolling. | boolean      |
-
 
 # Config
 
@@ -53,26 +53,26 @@ All of the configs here are set using `setr [voice_configOption] [int]` OR `setr
 |-------------------------|---------|--------------------------------------------------------------------|--------------|
 | voice_enableUi               |    1    | Enables the built in user interface                            | int          |
 | voice_enableProximityCycle   |    1    | Enables the usage of the F11 proximity key, if disabled players are stuck on the first proximity  | int          |
-| voice_defaultCycle           |   F11   | The default key to cycle the players proximity. You can find a list of valid keys [in the FiveM docs](https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/)                | string       |
-| voice_defaultVolume          |   0.3   | The default volume to set the radio to (has to be between 0.0 and 1.0) *NOTE: Only new joins will have the new value, players that already joined will not.* | float       |
+| voice_defaultCycle           |   F11   | The default key to cycle the players proximity. You can find a list of valid keys [in the Cfx docs](https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/)                | string       |
+| voice_defaultRadioVolume          |   30   | The default volume to set the radio to (has to be between 1 and 100) *NOTE: Only new joins will have the new value, players that already joined will not.* | float       |
+| voice_defaultCallVolume          |   60   | The default volume to set the call to (has to be between 1 and 100) *NOTE: Only new joins will have the new value, players that already joined will not.* | float       |
+| voice_defaultVoiceMode  |  2      | Default proximity voice value when player joins server. (Voice Modes; 1:Whisper, 2:Normal, 3:Shouting) | int      |
 
-
-### Phone & Radio
+### Call & Radio
 
 | ConVar                  | Default | Description                                                        | Parameter(s) |
 |-------------------------|---------|--------------------------------------------------------------------|--------------|
 | voice_enableRadios           |    1    | Enables the radio sub-modules                                 | int          |
-| voice_enablePhones           |    1    | Enables the phone sub-modules                                 | int          |
-| voice_enableSubmix      |    0    | Enables the submix which adds a radio/phone style submix to their voice **NOTE: Submixs require native audio** | int          |
+| voice_enableCalls           |    1    | Enables the call sub-modules                                 | int          |
+| voice_enableSubmix      |    1    | Enables the submix which adds a radio/call style submix to their voice **NOTE: Submixs require native audio** | int          |
 | voice_enableRadioAnim        |   0     | Enables (grab shoulder mic) animation while talking on the radio.          | int          |
-| voice_defaultRadio           |   LALT  | The default key to use the radio. You can find a list of valid keys [in the FiveM docs](https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/)                             | string       |
+| voice_defaultRadio           |   LMENU  | The default key to use the radio. You can find a list of valid keys [in the FiveM docs](https://docs.fivem.net/docs/game-references/input-mapper-parameter-ids/keyboard/)                             | string       |
 
 ### Sync
 
 | ConVar                  | Default | Description                                                        | Parameter(s) |
 |-------------------------|---------|--------------------------------------------------------------------|--------------|
 | voice_refreshRate   |   200    | How often the UI/Proximity is refreshed | int     |
-| voice_syncData          | 1   | Enables state bags to be sync'd server side & to other clients, has to be enabled on startup | int        |
 
 ### External Server & Misc.
 | ConVar                  | Default | Description                                                        | Parameter(s) |
@@ -164,14 +164,14 @@ These are events designed for third-party resource integration. These are emitte
 ##### Getters
 
 ###### State Bags
-Server side state getters require the voice_syncData convar to be set to 1. You can access the state with `Player(source).state['state bag here']`
+You can access the state with `Player(source).state['state bag here']`
 
 | State Bag     | Description                                                  | Return Type  |
 |---------------|--------------------------------------------------------------|--------------|
 | [proximity](docs/state-getters/stateBagGetters.md)     | Returns a table with the mode index, distance, and mode name | table        |
 | [radioChannel](docs/state-getters/stateBagGetters.md)  | Returns the players current radio channel, or 0 for none     | int          |
 | [callChannel](docs/state-getters/stateBagGetters.md)   | Returns the players current call channel, or 0 for none      | int          |
-
+| [voiceIntent](docs/state-getters/stateBagGetters.md) | Returns the players current voice intent, either 'speech' or 'music' | string |
 
 ###### Exports
 
